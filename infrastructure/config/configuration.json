@@ -1,0 +1,53 @@
+[
+    {
+        "Classification": "spark",
+        "Properties": {
+            "maximizeResourceAllocation": "true"
+        }
+    },
+    {
+        "Classification": "spark-defaults",
+        "Properties": {
+            "maximizeResourceAllocation": "true",
+            "spark.network.timeout": "400s",
+            "spark.eventLog.enabled": "false",
+            "spark.history.fs.cleaner.enabled": "true",
+            "spark.history.fs.cleaner.interval": "3h",
+            "spark.history.fs.cleaner.maxAge": "3d",
+            "spark.shuffle.spill.compress": "true",
+            "spark.shuffle.compress": "true",
+            "spark.task.maxFailures": "10",
+            "spark.executor.heartbeatInterval": "30s",
+            "spark.yarn.am.attemptFailuresValidityInterval": "300s",
+            "spark.yarn.executor.failuresValidityInterval": "300s",
+            "spark.yarn.maxAppAttempts": "10",
+            "spark.yarn.max.executor.failures": "10"
+        }
+    },
+    {
+        "Classification": "yarn-site",
+        "Properties": {
+            "yarn.nodemanager.pmem-check-enabled": "false",
+            "yarn.nodemanager.vmem-check-enabled": "false",
+            "yarn.resourcemanager.am.max-attempts": "10"            
+        }
+    },
+    {
+        "Classification": "hive-site",
+        "Properties": {
+            "hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory"
+        }
+    },
+    {
+        "Classification": "spark-hive-site",
+        "Properties": {
+            "hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory"
+        }
+    },
+    {
+        "Classification": "presto-connector-hive",
+        "Properties": {
+            "hive.metastore.glue.datacatalog.enabled": "true"
+        }
+    }
+]

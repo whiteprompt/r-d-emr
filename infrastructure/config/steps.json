@@ -1,0 +1,24 @@
+[
+    {
+        "action_on_failure": "CONTINUE",
+        "hadoop_jar_step": {
+            "jar": "command-runner.jar",
+            "args": [
+                "spark-submit",
+                "s3://wp-emr-processing/app/extract_data.py"
+            ]
+        },
+        "name": "Extract Data"
+    },
+    {
+      "action_on_failure": "CONTINUE",
+      "hadoop_jar_step": {
+          "jar": "command-runner.jar",
+          "args": [
+              "spark-submit",
+              "s3://wp-emr-processing/app/process_data.py"
+          ]
+      },
+      "name": "Process Data"
+  }
+]
