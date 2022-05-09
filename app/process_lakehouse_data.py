@@ -1,4 +1,3 @@
-import json
 import pyspark.sql.functions as F
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, TimestampType
 from pyspark.context import SparkContext

@@ -16,7 +16,9 @@
             "jar": "command-runner.jar",
             "args": [
                 "spark-submit",
-                "/home/hadoop/r-d-emr/app/process_trusted_data.py --type 'all'"
+                "/home/hadoop/r-d-emr/app/process_trusted_data.py",
+                "--type",
+                "'all'"
             ]
         },
         "name": "Process All Taxi Data - Trusted Zone"
@@ -27,7 +29,13 @@
             "jar": "command-runner.jar",
             "args": [
                 "spark-submit",
-                "/home/hadoop/r-d-emr/app/ingest_raw_data.py --type 'yellow' --year_data '2020' --interval '1-12'"
+                "/home/hadoop/r-d-emr/app/ingest_raw_data.py",
+                "--type",
+                "'yellow'",
+                "--year_data",
+                "'2020'",
+                "--interval",
+                "'1-12'"
             ]
         },
         "name": "Extract Yellow Taxi Data - 2020"
@@ -38,7 +46,13 @@
             "jar": "command-runner.jar",
             "args": [
                 "spark-submit",
-                "/home/hadoop/r-d-emr/app/ingest_raw_data.py --type 'yellow' --year_data '2019' --interval '1-12'"
+                "/home/hadoop/r-d-emr/app/ingest_raw_data.py", 
+                "--type",
+                "'yellow'",
+                "--year_data",
+                "'2019'",
+                "--interval",
+                "'1-12'"
             ]
         },
         "name": "Extract Yellow Taxi Data - 2019"
@@ -49,7 +63,13 @@
             "jar": "command-runner.jar",
             "args": [
                 "spark-submit",
-                "/home/hadoop/r-d-emr/app/ingest_raw_data.py --type 'green' --year_data '2020' --interval '1-12'"
+                "/home/hadoop/r-d-emr/app/ingest_raw_data.py",
+                "--type",
+                "'green'",
+                "--year_data",
+                "'2020'",
+                "--interval",
+                "'1-12'"
             ]
         },
         "name": "Extract Green Taxi Data - 2020"
@@ -60,7 +80,13 @@
             "jar": "command-runner.jar",
             "args": [
                 "spark-submit",
-                "/home/hadoop/r-d-emr/app/ingest_raw_data.py --type 'green' --year_data '2019' --interval '1-12'"
+                "/home/hadoop/r-d-emr/app/ingest_raw_data.py",
+                "--type",
+                "'green'",
+                "--year_data",
+                "'2019'",
+                "--interval",
+                "'1-12'"
             ]
         },
         "name": "Extract Green Taxi Data - 2019"

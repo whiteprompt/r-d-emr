@@ -1,9 +1,5 @@
 import boto3
-import requests
-import json
-import os
 import sys
-import logging
 import argparse
 import utils
 import pyspark.sql.functions as F
