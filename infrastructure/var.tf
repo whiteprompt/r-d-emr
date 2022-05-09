@@ -272,7 +272,7 @@ variable "service_role" {
 variable "configurations_json" {
   type        = string
   description = "A JSON file with a list of configurations for the EMR cluster"
-  default = "./infrastructure/config/configuration.json"
+  default = "emr/config/configuration.json"
 }  
 
 variable "log_uri" {
@@ -282,5 +282,5 @@ variable "log_uri" {
 variable "steps" {
   type        = string
   description = "Steps to execute after creation of EMR cluster"
-  default = "./infrastructure/config/steps.json"
+  default = "emr/config/steps.json"
 }
