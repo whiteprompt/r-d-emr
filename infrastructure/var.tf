@@ -45,7 +45,7 @@ variable "lakehouse_db" {
 
 variable "trusted_tables_list" {
   type = list(string)
-  default = [ "green_taxy", "yellow_taxi", "zone_lookup_taxi" ]
+  default = [ "green_taxi", "yellow_taxi", "zone_lookup_taxi" ]
 }
 
 variable "lakehouse_tables_list" {
@@ -242,7 +242,7 @@ variable "core_instance_group_bid_price" {
 #=================================================================#
 
 variable "key_name" {
-  default = "data-mgmt.pem"
+  default = "data-mgmt"
 }
 
 variable "subnet_id" {

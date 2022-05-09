@@ -108,7 +108,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_trusted" {
 
     schema_reference {
       schema_id {
-        registry_name = aws_glue_registry.glue_registry.registry_name
+        registry_name = "${aws_glue_registry.glue_registry.registry_name}"
         schema_name = "${each.key}"
       }
       schema_version_number = "${var.schema_version_number}"
@@ -149,7 +149,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_lakehouse" {
 
     schema_reference {
       schema_id {
-        registry_name = aws_glue_registry.glue_registry.registry_name
+        registry_name = "${aws_glue_registry.glue_registry.registry_name}"
         schema_name = "${each.key}"
       }
       schema_version_number = "${var.schema_version_number}"
