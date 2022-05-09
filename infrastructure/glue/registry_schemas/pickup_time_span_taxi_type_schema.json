@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "The pickup_time_span_taxi_type schema",
+    "properties": {
+        "span": {
+            "$id": "#/properties/span",
+            "type": "string",
+            "title": "The span schema field."
+        },
+        "total": {
+            "$id": "#/properties/total",
+            "type": "number",
+            "title": "The total schema field."
+        },
+        "taxi_type": {
+            "$id": "#/properties/taxi_type",
+            "type": "string",
+            "title": "The taxi_type schema field."
+        },
+        "timeslot": {
+            "$id": "#/properties/timeslot",
+            "type": "number",
+            "title": "The timeslot schema field."
+        }
+    }
+}

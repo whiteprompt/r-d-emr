@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "The Yellow Taxi schema",
+    "properties": {
+        "tpep_pickup_datetime": {
+            "$id": "#/properties/tpep_pickup_datetime",
+            "type": "string",
+            "title": "The tpep_pickup_datetime schema field."
+        },
+        "tpep_dropoff_datetime": {
+            "$id": "#/properties/tpep_dropoff_datetime",
+            "type": "string",
+            "title": "The tpep_dropoff_datetime schema field."
+        },
+        "trip_distance": {
+            "$id": "#/properties/trip_distance",
+            "type": "number",
+            "title": "The trip_distance schema field."
+        },
+        "PULocationID": {
+            "$id": "#/properties/PULocationID",
+            "type": "integer",
+            "title": "The PULocationID schema field."
+        },
+        "DOLocationID": {
+            "$id": "#/properties/DOLocationID",
+            "type": "integer",
+            "title": "The DOLocationID schema field."
+        },
+        "fare_amount": {
+            "$id": "#/properties/fare_amount",
+            "type": "number",
+            "title": "The fare_amount schema field."
+        },
+        "extra": {
+            "$id": "#/properties/extra",
+            "type": "number",
+            "title": "The extra schema field."
+        },
+        "mta_tax": {
+            "$id": "#/properties/mta_tax",
+            "type": "number",
+            "title": "The mta_tax schema field."
+        },
+        "tip_amount": {
+            "$id": "#/properties/tip_amount",
+            "type": "number",
+            "title": "The tip_amount schema field."
+        },
+        "tolls_amount": {
+            "$id": "#/properties/tolls_amount",
+            "type": "number",
+            "title": "The tolls_amount schema field."
+        },
+        "improvement_surcharge": {
+            "$id": "#/properties/improvement_surcharge",
+            "type": "number",
+            "title": "The improvement_surcharge schema field."
+        },
+        "total_amount": {
+            "$id": "#/properties/total_amount",
+            "type": "number",
+            "title": "The total_amount schema field."
+        },
+        "congestion_surcharge": {
+            "$id": "#/properties/congestion_surcharge",
+            "type": "number",
+            "title": "The congestion_surcharge schema field."
+        }
+    }
+}

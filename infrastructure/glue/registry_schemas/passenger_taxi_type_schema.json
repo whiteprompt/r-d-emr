@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "The passenger_taxi_type schema",
+    "properties": {
+        "total_passenger": {
+            "$id": "#/properties/total_passenger",
+            "type": "number",
+            "title": "The total_passenger schema field."
+        },
+        "taxi_type": {
+            "$id": "#/properties/taxi_type",
+            "type": "string",
+            "title": "The taxi_type schema field."
+        }
+    }
+}

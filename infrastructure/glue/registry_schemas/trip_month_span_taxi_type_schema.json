@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "The trip_month_span_taxi_type schema",
+    "properties": {
+        "span": {
+            "$id": "#/properties/span",
+            "type": "string",
+            "title": "The span schema field."
+        },
+        "count": {
+            "$id": "#/properties/count",
+            "type": "number",
+            "title": "The count schema field."
+        },
+        "month": {
+            "$id": "#/properties/month",
+            "type": "integer",
+            "title": "The month schema field."
+        },
+        "taxi_type": {
+            "$id": "#/properties/taxi_type",
+            "type": "string",
+            "title": "The taxi_type schema field."
+        }
+    }
+}

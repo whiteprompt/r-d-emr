@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "The payment_method_type schema",
+    "properties": {
+        "payment_type": {
+            "$id": "#/properties/payment_type",
+            "type": "string",
+            "title": "The payment_type schema field."
+        },
+        "total_payment": {
+            "$id": "#/properties/total_payment",
+            "type": "number",
+            "title": "The total_payment schema field."
+        }
+    }
+}

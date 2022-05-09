@@ -18,9 +18,113 @@ variable "client_name" {
   default     = "WP"
 }
 
+variable "app_name" {
+  description = "The common name for your deployment."
+  default     = "emr_processing"
+}
+
+variable "s3_bucket_name" {
+  default = "wp-lakehouse"
+  description = "The bucket name used by the lakehouse."
+}
+
+variable "registry_name" {
+  description = "The name of AWS Glue Schema Registry."
+  default     = "whiteprompt-data-management"
+}
+
+variable "trusted_db" {
+  description = "The common name for your deployment."
+  default     = "wp_trusted_nyc_taxi"
+}
+
+variable "lakehouse_db" {
+  description = "The common name for your deployment."
+  default     = "wp_lakehouse_nyc_taxi"
+}
+
+variable "trusted_tables_list" {
+  type = list(string)
+  default = [ "green_taxy", "yellow_taxi", "zone_lookup_taxi" ]
+}
+
+variable "lakehouse_tables_list" {
+  type = list(string)
+  default = [ "payment_method_type", "passenger_taxi_type", "pickup_time_span_taxi_type", "trip_month_span_taxi_type" ]
+}
+
+variable "payment_method_type_schema_json" {
+  type        = string
+  description = "A JSON file with the schema definition."
+  default = "./infrastructure/glue/registry_schemas/payment_method_type_schema.json"
+}
+
+variable "passenger_taxi_type_schema_json" {
+  type        = string
+  description = "A JSON file with the schema definition."
+  default = "./infrastructure/glue/registry_schemas/passenger_taxi_type_schema.json"
+}
+
+variable "pickup_time_span_taxi_type_schema_json" {
+  type        = string
+  description = "A JSON file with the schema definition."
+  default = "./infrastructure/glue/registry_schemas/pickup_time_span_taxi_type_schema.json"
+}
+
+variable "trip_month_span_taxi_type_schema_json" {
+  type        = string
+  description = "A JSON file with the schema definition."
+  default = "./infrastructure/glue/registry_schemas/trip_month_span_taxi_type_schema.json"
+}
+
+variable "zone_lookup_schema_json" {
+  type        = string
+  description = "A JSON file with the schema definition."
+  default = "./infrastructure/glue/registry_schemas/zone_lookup_schema.json"
+}
+
+variable "green_taxi_schema_json" {
+  type        = string
+  description = "A JSON file with the schema definition."
+  default = "./infrastructure/glue/registry_schemas/green_taxi_schema.json"
+}
+
+variable "yellow_taxi_schema_json" {
+  type        = string
+  description = "A JSON file with the schema definition."
+  default = "./infrastructure/glue/registry_schemas/yellow_taxi_schema.json"
+}
+
+variable "schema_version_number" {
+  type        = number
+  description = "The common version number of schemas."
+  default     = 1
+}
+
+variable "storage_input_format" {
+  description = "Storage input format class for aws glue for parcing data."
+  default     = "org.apache.hadoop.hive.ql.io.SymlinkTextInputFormat"
+}
+
+variable "storage_output_format" {
+  description = "Storage output format class for aws glue for parcing data."
+  default     = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
+}
+
+variable "serde_name" {
+  description = "The serialization library name."
+  default     = "JsonSerDe"
+}
+variable "serde_library" {
+  description = "The serialization library class."
+  default     = "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe"
+}
+
+#------------------------------EMR Variable section------------------------------
+
 variable "cluster_name" {
   description = "EMR cluster name"
-  default = "Terraform-Automation"
+  default = "WP_Lakehouse_NYC_Taxi_Data"
 }
 
 variable "step_concurrency_level" {
@@ -29,13 +133,13 @@ variable "step_concurrency_level" {
 
 variable "release_label" {
   description = "EMR Version"
-  default = "emr-6.2.0"
+  default = "emr-6.5.0"
 }
 
 variable "cluster_applications" {
   type    = list(string)
-  description = "Name the applications to be installed"
-  default = ["Hadoop", "Hive", "Hue", "Presto", "Spark"]
+  description = "Name of the applications to be installed"
+  default = ["Hadoop", "Hive", "Spark"]
 }
 #------------------------------Master Instance Group------------------------------
 
@@ -65,7 +169,7 @@ variable "master_instance_group_ebs_size" {
 
 variable "master_instance_group_ebs_type" {
   type        = string
-  description = "Master instances volume type. Valid options are `gp2`, `io1`, `standard` and `st1`"
+  description = "Master instances volume type."
   default     = "gp2"
 }
 
@@ -138,11 +242,11 @@ variable "core_instance_group_bid_price" {
 #=================================================================#
 
 variable "key_name" {
-  default = "key-pair.pem"
+  default = "data-mgmt.pem"
 }
 
 variable "subnet_id" {
-  default = "subnet-xxxxxxxx"
+  default = "subnet-d66e7eb1"
 }
 
 variable "instance_profile" {
@@ -154,15 +258,15 @@ variable "service_access_security_group"{
 }
   
 variable "emr_managed_master_security_group" {
-  default = "sg-xxxxxxxx"
+  default = "sg-09f2e5de468ebfc3e"
 }
 
 variable "emr_managed_slave_security_group" {
-  default = "sg-xxxxxxxx"
+  default = "sg-06347ea1f8bb1e4c2"
 }
 
 variable "service_role" {
-  default = "arn:aws:iam::xxxxxxxx:role/xxxxxxxx/EMR_DefaultRole"
+  default = "arn:aws:iam:::role/EMR_DefaultRole"
 }
 
 variable "configurations_json" {
@@ -172,7 +276,7 @@ variable "configurations_json" {
 }  
 
 variable "log_uri" {
-  default = "s3://wp-emr-processing/emr-logs/"
+  default = "s3://wp-data-mgmt/emr-logs/"
 }
 
 variable "steps" {

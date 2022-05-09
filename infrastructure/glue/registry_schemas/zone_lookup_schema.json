@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "The Taxi Zone Lookup schema",
+    "properties": {
+        "LocationID": {
+            "$id": "#/properties/LocationID",
+            "type": "integer",
+            "title": "The LocationID schema field."
+        },
+        "Borough": {
+            "$id": "#/properties/Borough",
+            "type": "string",
+            "title": "The Borough schema field."
+        },
+        "Zone": {
+            "$id": "#/properties/Zone",
+            "type": "string",
+            "title": "The Zone schema field."
+        },
+        "service_zone": {
+            "$id": "#/properties/service_zone",
+            "type": "string",
+            "title": "The service_zone schema field."
+        }
+    }
+}

@@ -21,7 +21,17 @@
             "spark.yarn.am.attemptFailuresValidityInterval": "300s",
             "spark.yarn.executor.failuresValidityInterval": "300s",
             "spark.yarn.maxAppAttempts": "10",
-            "spark.yarn.max.executor.failures": "10"
+            "spark.yarn.max.executor.failures": "10",
+            "spark.sql.adaptive.enabled": "true",
+            "spark.debug.maxToStringFields": "200",
+            "spark.sql.legacy.timeParserPolicy": "LEGACY",
+            "spark.jars.packages": "io.delta:delta-core_2.12:1.0.0",
+            "spark.sql.extensions": "io.delta.sql.DeltaSparkSessionExtension",
+            "spark.sql.catalog.spark_catalog": "org.apache.spark.sql.delta.catalog.DeltaCatalog",
+            "fs.s3a.acl.default": "BucketOwnerFullControl",
+            "fs.s3a.committer.name": "partitioned",
+            "spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version": "2",
+            "spark.hadoop.mapreduce.outputcommitter.factory.scheme.s3a": "org.apache.hadoop.fs.s3a.commit.S3ACommitterFactory"
         }
     },
     {
