@@ -5,6 +5,7 @@ import os
 import sys
 import logging
 import argparse
+import utils
 import pyspark.sql.functions as F
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, TimestampType
 from pyspark.context import SparkContext
@@ -12,7 +13,7 @@ from pyspark.sql.session import SparkSession
 from utils import Logger
 
 sc = SparkContext.getOrCreate()
-spark = SparkSession.builder.master("local[*]").getOrCreate()
+spark = SparkSession.builder.master("yarn").getOrCreate()
 log = Logger()
 s3 = boto3.client('s3')
 s3_resource = boto3.resource('s3')
@@ -96,13 +97,11 @@ def load_data_zone_lookup(spark, path_file):
 
 
 def process_data(type):
-    #raw_path = f"s3://wp-lakehouse/raw/{type}_taxi/"
-    #trusted_path = f"s3://wp-lakehouse/trusted/{type}_taxi/"
-    raw_path = f"/home/jonathan/Documents/Work/Projects/WhitePrompt/data-lakehouse/demo_data/raw/{type}_taxi/"
-    trusted_path = f"/home/jonathan/Documents/Work/Projects/WhitePrompt/data-lakehouse/demo_data/trusted/{type}_taxi/"
+    raw_path = f"s3://wp-lakehouse/raw/{type}_taxi/"
+    trusted_path = f"s3://wp-lakehouse/trusted/{type}_taxi/"
     bucket_name = raw_path.split('/')[2]
     bucket_key = f"{raw_path.split('/')[3]}/{raw_path.split('/')[4]}/"
-    coalesce_size = 1 #calc_spark_coalesce(bucket_name, bucket_key)
+    coalesce_size = utils.calc_spark_coalesce(bucket_name, bucket_key)
     if type == "green":
         log.info(f"Processing {type} taxi data.")
         df_green = load_data_green_taxi(spark, raw_path)

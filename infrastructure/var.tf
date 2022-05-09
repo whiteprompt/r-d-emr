@@ -77,7 +77,7 @@ variable "trip_month_span_taxi_type_schema_json" {
   default = "glue/registry_schemas/trip_month_span_taxi_type_schema.json"
 }
 
-variable "zone_lookup_schema_json" {
+variable "zone_lookup_taxi_schema_json" {
   type        = string
   description = "A JSON file with the schema definition."
   default = "glue/registry_schemas/zone_lookup_schema.json"
@@ -101,14 +101,24 @@ variable "schema_version_number" {
   default     = 1
 }
 
-variable "storage_input_format" {
+variable "storage_input_format_delta" {
   description = "Storage input format class for aws glue for parcing data."
   default     = "org.apache.hadoop.hive.ql.io.SymlinkTextInputFormat"
 }
 
-variable "storage_output_format" {
+variable "storage_output_format_delta" {
   description = "Storage output format class for aws glue for parcing data."
   default     = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
+}
+
+variable "storage_input_format" {
+  description = "Storage input format class for aws glue for parcing data."
+  default     = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat"
+}
+
+variable "storage_output_format" {
+  description = "Storage output format class for aws glue for parcing data."
+  default     = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat"
 }
 
 variable "serde_name" {
@@ -266,7 +276,7 @@ variable "emr_managed_slave_security_group" {
 }
 
 variable "service_role" {
-  default = "arn:aws:iam::930170203968:role/EMR_DefaultRole"
+  default = "EMR_DefaultRole"
 }
 
 variable "configurations_json" {
@@ -279,7 +289,7 @@ variable "log_uri" {
   default = "s3://wp-data-mgmt/emr-logs/"
 }
 
-variable "steps" {
+variable "emr_steps" {
   type        = string
   description = "Steps to execute after creation of EMR cluster"
   default = "emr/config/steps.json"

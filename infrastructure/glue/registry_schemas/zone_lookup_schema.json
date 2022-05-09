@@ -3,20 +3,20 @@
     "type": "object",
     "title": "The Taxi Zone Lookup schema",
     "properties": {
-        "LocationID": {
-            "$id": "#/properties/LocationID",
+        "location_id": {
+            "$id": "#/properties/location_id",
             "type": "integer",
-            "title": "The LocationID schema field."
+            "title": "The location_id schema field."
         },
-        "Borough": {
-            "$id": "#/properties/Borough",
+        "borough": {
+            "$id": "#/properties/borough",
             "type": "string",
-            "title": "The Borough schema field."
+            "title": "The borough schema field."
         },
-        "Zone": {
-            "$id": "#/properties/Zone",
+        "zone": {
+            "$id": "#/properties/zone",
             "type": "string",
-            "title": "The Zone schema field."
+            "title": "The zone schema field."
         },
         "service_zone": {
             "$id": "#/properties/service_zone",

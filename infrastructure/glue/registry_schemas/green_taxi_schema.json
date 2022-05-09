@@ -3,25 +3,47 @@
     "type": "object",
     "title": "The Green Taxi schema",
     "properties": {
-        "lpep_pickup_datetime": {
-            "$id": "#/properties/lpep_pickup_datetime",
+        "vendor_id": {
+            "$id": "#/properties/vendor_id",
             "type": "string",
-            "title": "The lpep_pickup_datetime schema field."
+            "title": "The vendor_id schema field."
         },
-        "lpep_dropoff_datetime": {
-            "$id": "#/properties/lpep_dropoff_datetime",
+        "pickup_datetime": {
+            "$id": "#/properties/pickup_datetime",
             "type": "string",
-            "title": "The lpep_dropoff_datetime schema field."
+            "format": "date-time",
+            "title": "The pickup_datetime schema field."
         },
-        "PULocationID": {
-            "$id": "#/properties/PULocationID",
-            "type": "integer",
-            "title": "The PULocationID schema field."
+        "dropoff_datetime": {
+            "$id": "#/properties/dropoff_datetime",
+            "type": "string",
+            "format": "date-time",
+            "title": "The dropoff_datetime schema field."
         },
-        "DOLocationID": {
-            "$id": "#/properties/DOLocationID",
+        "store_and_fwd_flag": {
+            "$id": "#/properties/store_and_fwd_flag",
+            "type": "string",
+            "title": "The store_and_fwd_flag schema field."
+        },
+        "rate_code_id": {
+            "$id": "#/properties/rate_code_id",
             "type": "integer",
-            "title": "The DOLocationID schema field."
+            "title": "The rate_code_id schema field."
+        },
+        "pickup_location_id": {
+            "$id": "#/properties/pickup_location_id",
+            "type": "integer",
+            "title": "The pickup_location_id schema field."
+        },
+        "dropoff_location_id": {
+            "$id": "#/properties/dropoff_location_id",
+            "type": "integer",
+            "title": "The dropoff_location_id schema field."
+        },
+        "passenger_count": {
+            "$id": "#/properties/passenger_count",
+            "type": "integer",
+            "title": "The passenger_count schema field."
         },
         "trip_distance": {
             "$id": "#/properties/trip_distance",
@@ -53,6 +75,11 @@
             "type": "number",
             "title": "The tolls_amount schema field."
         },
+        "ehail_fee": {
+            "$id": "#/properties/ehail_fee",
+            "type": "number",
+            "title": "The ehail_fee schema field."
+        },
         "improvement_surcharge": {
             "$id": "#/properties/improvement_surcharge",
             "type": "number",
@@ -65,17 +92,17 @@
         },
         "payment_type": {
             "$id": "#/properties/payment_type",
-            "type": "number",
+            "type": "integer",
             "title": "The payment_type schema field."
         },
         "trip_type": {
             "$id": "#/properties/trip_type",
-            "type": "number",
+            "type": "integer",
             "title": "The trip_type schema field."
         },
         "congestion_surcharge": {
             "$id": "#/properties/congestion_surcharge",
-            "type": "number",
+            "type": "string",
             "title": "The congestion_surcharge schema field."
         }
     }

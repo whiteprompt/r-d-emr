@@ -7,18 +7,15 @@ from delta.tables import *
 from utils import Logger
 
 sc = SparkContext.getOrCreate()
-spark = SparkSession.builder.master("local[*]").getOrCreate()
+spark = SparkSession.builder.master("yarn").getOrCreate()
 log = Logger()
 
 def create_temp_views():
     try:
         bucket_name = "wp-lakehouse"
-        #green_taxi_trusted = f"s3://{bucket_name}/trusted/green_taxi/"
-        #yellow_taxi_trusted = f"s3://{bucket_name}/trusted/yellow_taxi/"
-        #zone_lookup_taxi_trusted = f"s3://{bucket_name}/trusted/zone_lookup_taxi/"
-
-        green_taxi_trusted = f"/home/jonathan/Documents/Work/Projects/WhitePrompt/data-lakehouse/demo_data/trusted/green_taxi/"
-        yellow_taxi_trusted = f"/home/jonathan/Documents/Work/Projects/WhitePrompt/data-lakehouse/demo_data/trusted/yellow_taxi/"
+        green_taxi_trusted = f"s3://{bucket_name}/trusted/green_taxi/"
+        yellow_taxi_trusted = f"s3://{bucket_name}/trusted/yellow_taxi/"
+        zone_lookup_taxi_trusted = f"s3://{bucket_name}/trusted/zone_lookup_taxi/"
 
         # Green Taxi view
         log.info("Creating temp view 'green_taxi_tmp'.")

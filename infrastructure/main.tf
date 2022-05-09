@@ -41,7 +41,7 @@ resource "aws_glue_schema" "zone_lookup" {
   registry_arn      = aws_glue_registry.glue_registry.arn
   data_format       = "JSON"
   compatibility     = "FULL_ALL"
-  schema_definition = file(var.zone_lookup_schema_json)
+  schema_definition = file(var.zone_lookup_taxi_schema_json)
 }
 
 resource "aws_glue_schema" "payment_method_type" {
@@ -134,8 +134,8 @@ resource "aws_glue_catalog_table" "aws_glue_table_lakehouse" {
 
   storage_descriptor {
     location      = "s3://${var.s3_bucket_name}/refined/${each.key}/_symlink_format_manifest/"
-    input_format  = "${var.storage_input_format}"
-    output_format = "${var.storage_output_format}"
+    input_format  = "${var.storage_input_format_delta}"
+    output_format = "${var.storage_output_format_delta}"
 
     ser_de_info {
       name                  = "${var.serde_name}"
@@ -158,10 +158,6 @@ resource "aws_glue_catalog_table" "aws_glue_table_lakehouse" {
   }
 }
 
-##resource "aws_s3_bucket" "emr_bucket" {
-##  bucket = "${var.s3_bucket_name}"
-##  acl    = "private"
-##}
 
 resource "aws_emr_cluster" "cluster" {
   name           = "${var.cluster_name}"
@@ -171,9 +167,9 @@ resource "aws_emr_cluster" "cluster" {
   configurations_json = file(var.configurations_json)
   log_uri      = "${var.log_uri}"
   service_role = "${var.service_role}"
- /* 
+  
   dynamic "step" {
-    for_each = jsondecode(templatefile("${var.steps}", {}))
+    for_each = jsondecode(templatefile("${var.emr_steps}", {}))
     content {
       action_on_failure = step.value.action_on_failure
       name              = step.value.name
@@ -182,7 +178,7 @@ resource "aws_emr_cluster" "cluster" {
         args = step.value.hadoop_jar_step.args
       }
     }
-  }*/
+  }
 
   step_concurrency_level = "${var.step_concurrency_level}"
 

@@ -39,7 +39,7 @@
         "Properties": {
             "yarn.nodemanager.pmem-check-enabled": "false",
             "yarn.nodemanager.vmem-check-enabled": "false",
-            "yarn.resourcemanager.am.max-attempts": "10"            
+            "yarn.resourcemanager.am.max-attempts": "10"
         }
     },
     {

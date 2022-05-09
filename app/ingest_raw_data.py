@@ -54,7 +54,6 @@ def execute(type, year_data="2020", month_interval="1-2"):
                     is_ok = True
                 else: 
                     is_ok = False
-        
     except Exception as e:
         log.error(f"Fail to extract data: {str(e)}")
 
