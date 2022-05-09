@@ -56,43 +56,43 @@ variable "lakehouse_tables_list" {
 variable "payment_method_type_schema_json" {
   type        = string
   description = "A JSON file with the schema definition."
-  default = "./infrastructure/glue/registry_schemas/payment_method_type_schema.json"
+  default = "glue/registry_schemas/payment_method_type_schema.json"
 }
 
 variable "passenger_taxi_type_schema_json" {
   type        = string
   description = "A JSON file with the schema definition."
-  default = "./infrastructure/glue/registry_schemas/passenger_taxi_type_schema.json"
+  default = "glue/registry_schemas/passenger_taxi_type_schema.json"
 }
 
 variable "pickup_time_span_taxi_type_schema_json" {
   type        = string
   description = "A JSON file with the schema definition."
-  default = "./infrastructure/glue/registry_schemas/pickup_time_span_taxi_type_schema.json"
+  default = "glue/registry_schemas/pickup_time_span_taxi_type_schema.json"
 }
 
 variable "trip_month_span_taxi_type_schema_json" {
   type        = string
   description = "A JSON file with the schema definition."
-  default = "./infrastructure/glue/registry_schemas/trip_month_span_taxi_type_schema.json"
+  default = "glue/registry_schemas/trip_month_span_taxi_type_schema.json"
 }
 
 variable "zone_lookup_schema_json" {
   type        = string
   description = "A JSON file with the schema definition."
-  default = "./infrastructure/glue/registry_schemas/zone_lookup_schema.json"
+  default = "glue/registry_schemas/zone_lookup_schema.json"
 }
 
 variable "green_taxi_schema_json" {
   type        = string
   description = "A JSON file with the schema definition."
-  default = "./infrastructure/glue/registry_schemas/green_taxi_schema.json"
+  default = "glue/registry_schemas/green_taxi_schema.json"
 }
 
 variable "yellow_taxi_schema_json" {
   type        = string
   description = "A JSON file with the schema definition."
-  default = "./infrastructure/glue/registry_schemas/yellow_taxi_schema.json"
+  default = "glue/registry_schemas/yellow_taxi_schema.json"
 }
 
 variable "schema_version_number" {
