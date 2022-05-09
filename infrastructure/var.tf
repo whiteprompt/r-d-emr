@@ -266,7 +266,7 @@ variable "emr_managed_slave_security_group" {
 }
 
 variable "service_role" {
-  default = "arn:aws:iam:::role/EMR_DefaultRole"
+  default = "arn:aws:iam::930170203968:role/EMR_DefaultRole"
 }
 
 variable "configurations_json" {
