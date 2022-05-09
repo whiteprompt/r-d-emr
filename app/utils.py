@@ -5,31 +5,34 @@ import logging
 
 
 def calc_spark_coalesce(bucket, key_prefix):
-    client = boto3.client('s3')
-    paginator = client.get_paginator("list_objects")
-    page_iterator = paginator.paginate(Bucket=bucket, Prefix=key_prefix)
-    bucket_object_list = []
-    logging.info("Analyzing S3 keys to defined the right number to Spark coalesce!")
+    try:
+        client = boto3.client('s3')
+        paginator = client.get_paginator("list_objects")
+        page_iterator = paginator.paginate(Bucket=bucket, Prefix=key_prefix)
+        bucket_object_list = []
+        logging.info("Analyzing S3 keys to defined the right number to Spark coalesce!")
 
-    top_level_folders = dict()
-    for page in page_iterator:
-        if "Contents" in page:
-            for key in page["Contents"]:
-                keyString = key["Key"]
-                bucket_object_list.append(keyString)
-                folder = key['Key'].split('/')[0].split('_$')[0]
+        top_level_folders = dict()
+        for page in page_iterator:
+            if "Contents" in page:
+                for key in page["Contents"]:
+                    keyString = key["Key"]
+                    bucket_object_list.append(keyString)
+                    folder = key['Key'].split('/')[0].split('_$')[0]
 
-                if folder in top_level_folders:
-                    top_level_folders[folder] += key['Size']
-                else:
-                    top_level_folders[folder] = key['Size']
+                    if folder in top_level_folders:
+                        top_level_folders[folder] += key['Size']
+                    else:
+                        top_level_folders[folder] = key['Size']
 
-    for folder, size in top_level_folders.items():
-        if ((size / 1024 < 1024) or (size / 1024 / 1024 / 250 == 0)) and (size != 0):
-            coalesce_size = 1
-        else:
-            coalesce_size = size / 1024 / 1024 / 250
-    return coalesce_size
+        for folder, size in top_level_folders.items():
+            if ((size / 1024 < 1024) or (size / 1024 / 1024 / 250 == 0)) and (size != 0):
+                coalesce_size = 1
+            else:
+                coalesce_size = size / 1024 / 1024 / 250
+        return coalesce_size
+    except Exception as e:
+        logging.error(f"Fail to define the right number to Spark coalesce using the path 's3://{bucket}/{key_prefix}'.': {str(e)}")
 
 
 class Logger:

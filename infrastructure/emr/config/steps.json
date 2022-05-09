@@ -18,10 +18,23 @@
                 "spark-submit",
                 "/home/hadoop/r-d-emr/app/process_trusted_data.py",
                 "--type",
-                "'all'"
+                "green"
             ]
         },
-        "name": "Process All Taxi Data - Trusted Zone"
+        "name": "Process Green Taxi Data - Trusted Zone"
+    },
+    {
+        "action_on_failure": "CONTINUE",
+        "hadoop_jar_step": {
+            "jar": "command-runner.jar",
+            "args": [
+                "spark-submit",
+                "/home/hadoop/r-d-emr/app/process_trusted_data.py",
+                "--type",
+                "yellow"
+            ]
+        },
+        "name": "Process Yellow Taxi Data - Trusted Zone"
     },
     {
         "action_on_failure": "CONTINUE",
@@ -31,11 +44,11 @@
                 "spark-submit",
                 "/home/hadoop/r-d-emr/app/ingest_raw_data.py",
                 "--type",
-                "'yellow'",
+                "yellow",
                 "--year_data",
-                "'2020'",
+                "2020",
                 "--interval",
-                "'1-12'"
+                "1-12"
             ]
         },
         "name": "Extract Yellow Taxi Data - 2020"
@@ -48,11 +61,11 @@
                 "spark-submit",
                 "/home/hadoop/r-d-emr/app/ingest_raw_data.py", 
                 "--type",
-                "'yellow'",
+                "yellow",
                 "--year_data",
-                "'2019'",
+                "2019",
                 "--interval",
-                "'1-12'"
+                "1-12"
             ]
         },
         "name": "Extract Yellow Taxi Data - 2019"
@@ -65,11 +78,11 @@
                 "spark-submit",
                 "/home/hadoop/r-d-emr/app/ingest_raw_data.py",
                 "--type",
-                "'green'",
+                "green",
                 "--year_data",
-                "'2020'",
+                "2020",
                 "--interval",
-                "'1-12'"
+                "1-12"
             ]
         },
         "name": "Extract Green Taxi Data - 2020"
@@ -82,11 +95,11 @@
                 "spark-submit",
                 "/home/hadoop/r-d-emr/app/ingest_raw_data.py",
                 "--type",
-                "'green'",
+                "green",
                 "--year_data",
-                "'2019'",
+                "2019",
                 "--interval",
-                "'1-12'"
+                "1-12"
             ]
         },
         "name": "Extract Green Taxi Data - 2019"

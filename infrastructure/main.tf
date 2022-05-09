@@ -227,6 +227,7 @@ bootstrap_action {
 }
  
   tags = {
+    Name    = "${var.cluster_name}"
     EnvType = "${var.env_type}"
     Project = "${var.project_name}"
     Client  = "${var.client_name}"
