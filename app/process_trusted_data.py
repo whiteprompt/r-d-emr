@@ -97,7 +97,7 @@ def process_data(type):
     trusted_path = f"s3://wp-lakehouse/trusted/{type}_taxi/"
     bucket_name = raw_path.split('/')[2]
     bucket_key = f"{raw_path.split('/')[3]}/{raw_path.split('/')[4]}/"
-    coalesce_size = utils.calc_spark_coalesce(bucket_name, bucket_key)
+    coalesce_size = (int(utils.calc_spark_coalesce(bucket_name, bucket_key)) + 1)
     if type == "green":
         log.info(f"Processing {type} taxi data.")
         df_green = load_data_green_taxi(spark, raw_path)
