@@ -115,17 +115,6 @@ def process_data(type):
         log.info(f"Processing {type} lookup data.")
         df_zone_lookup = load_data_zone_lookup(spark, raw_path)
         df_zone_lookup.coalesce(coalesce_size).write.mode("append").partitionBy("year", "month").option("compression", "snappy").parquet(trusted_path)
-    elif type == "all":
-        log.info(f"Processing {type} taxi and lookup data.")
-        # Green taxi
-        df_green = load_data_green_taxi(spark, raw_path)
-        df_green.coalesce(coalesce_size).write.mode("append").partitionBy("year", "month").option("compression", "snappy").parquet(trusted_path)
-        # Yellow taxi
-        df_yellow = load_data_yellow_taxi(spark, raw_path)
-        df_yellow.coalesce(coalesce_size).write.mode("append").partitionBy("year", "month").option("compression", "snappy").parquet(trusted_path)
-        # Lookup zone data
-        df_zone_lookup = load_data_zone_lookup()
-        df_zone_lookup.coalesce(coalesce_size).write.mode("append").partitionBy("year", "month").option("compression", "snappy").parquet(trusted_path)
     else:
         log.warn(f"The option '{type}' is not valid, accepted values are (green, yellow, zone_lookup, all).")
         sys.exit(1)       
@@ -133,7 +122,7 @@ def process_data(type):
 
 if __name__ == '__main__':
     app_parser = argparse.ArgumentParser(allow_abbrev=False)
-    app_parser.add_argument('--type', ## Possible values: all, zone_lookup, green, yellow
+    app_parser.add_argument('--type', ## Possible values: zone_lookup, green, yellow
                             action='store',
                             type=str,
                             required=True,
