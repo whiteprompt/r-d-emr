@@ -20,7 +20,7 @@
         },
         "timeslot": {
             "$id": "#/properties/timeslot",
-            "type": "number",
+            "type": "string",
             "title": "The timeslot schema field."
         }
     }
