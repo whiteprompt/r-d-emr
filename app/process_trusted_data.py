@@ -3,7 +3,7 @@ import sys
 import argparse
 import utils
 import pyspark.sql.functions as F
-from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, TimestampType
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, FloatType, TimestampType
 from pyspark.context import SparkContext
 from pyspark.sql.session import SparkSession
 from utils import Logger
@@ -24,15 +24,15 @@ green_taxi_schema = StructType([
     StructField("pickup_location_id", IntegerType(), True),
     StructField("dropoff_location_id", IntegerType(), True),
     StructField("passenger_count", IntegerType(), True),
-    StructField("trip_distance", DoubleType(), True),
-    StructField("fare_amount", DoubleType(), True),
-    StructField("extra", DoubleType(), True),
-    StructField("mta_tax", DoubleType(), True),
-    StructField("tip_amount", DoubleType(), True),
-    StructField("tolls_amount", DoubleType(), True),
-    StructField("ehail_fee", DoubleType(), True),
-    StructField("improvement_surcharge", DoubleType(), True),
-    StructField("total_amount", DoubleType(), True),
+    StructField("trip_distance", FloatType(), True),
+    StructField("fare_amount", FloatType(), True),
+    StructField("extra", FloatType(), True),
+    StructField("mta_tax", FloatType(), True),
+    StructField("tip_amount", FloatType(), True),
+    StructField("tolls_amount", FloatType(), True),
+    StructField("ehail_fee", FloatType(), True),
+    StructField("improvement_surcharge", FloatType(), True),
+    StructField("total_amount", FloatType(), True),
     StructField("payment_type", IntegerType(), True),
     StructField("trip_type", IntegerType(), True),
     StructField("congestion_surcharge", StringType(), True)])
@@ -42,19 +42,19 @@ yellow_taxi_schema = StructType([
     StructField("pickup_datetime", TimestampType(), True),
     StructField("dropoff_datetime", TimestampType(), True),
     StructField("passenger_count", IntegerType(), True),
-    StructField("trip_distance", DoubleType(), True),
+    StructField("trip_distance", FloatType(), True),
     StructField("rate_code_id", IntegerType(), True),
     StructField("store_and_fwd_flag", StringType(), True),
     StructField("pickup_location_id", IntegerType(), True),
     StructField("dropoff_location_id", IntegerType(), True),
     StructField("payment_type", StringType(), True),
-    StructField("fare_amount", DoubleType(), True),
-    StructField("extra", DoubleType(), True),
-    StructField("mta_tax", DoubleType(), True),
-    StructField("tip_amount", DoubleType(), True),
-    StructField("tolls_amount", DoubleType(), True),
-    StructField("improvement_surcharge", DoubleType(), True),
-    StructField("total_amount", DoubleType(), True),
+    StructField("fare_amount", FloatType(), True),
+    StructField("extra", FloatType(), True),
+    StructField("mta_tax", FloatType(), True),
+    StructField("tip_amount", FloatType(), True),
+    StructField("tolls_amount", FloatType(), True),
+    StructField("improvement_surcharge", FloatType(), True),
+    StructField("total_amount", FloatType(), True),
     StructField("congestion_surcharge", StringType(), True)])
 
 zone_lookup_schema = StructType([
