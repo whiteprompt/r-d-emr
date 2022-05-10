@@ -94,6 +94,16 @@
             "$id": "#/properties/congestion_surcharge",
             "type": "string",
             "title": "The congestion_surcharge schema field."
+        },
+        "year": {
+            "$id": "#/properties/year",
+            "type": "integer",
+            "title": "The year schema field."
+        },
+        "month": {
+            "$id": "#/properties/month",
+            "type": "integer",
+            "title": "The month schema field."
         }
     }
 }

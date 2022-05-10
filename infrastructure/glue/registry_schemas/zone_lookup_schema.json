@@ -22,6 +22,16 @@
             "$id": "#/properties/service_zone",
             "type": "string",
             "title": "The service_zone schema field."
+        },
+        "year": {
+            "$id": "#/properties/year",
+            "type": "integer",
+            "title": "The year schema field."
+        },
+        "month": {
+            "$id": "#/properties/month",
+            "type": "integer",
+            "title": "The month schema field."
         }
     }
 }

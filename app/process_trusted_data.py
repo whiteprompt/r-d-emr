@@ -7,6 +7,7 @@ from pyspark.sql.types import StructType, StructField, StringType, IntegerType, 
 from pyspark.context import SparkContext
 from pyspark.sql.session import SparkSession
 from utils import Logger
+from datetime import datetime
 
 sc = SparkContext.getOrCreate()
 spark = SparkSession.builder.master("yarn").getOrCreate()
@@ -85,7 +86,11 @@ def load_data_yellow_taxi(spark, path_file):
 
 def load_data_zone_lookup(spark, path_file):
     try:
+        year = int(datetime.now().strftime("%Y"))
+        month = int(datetime.now().strftime("%m"))
         zone_lookup_df = spark.read.option("header", "true").schema(zone_lookup_schema).option("escapeQuotes", "true").csv(f"{path_file}")
+        zone_lookup_df = zone_lookup_df.withColumn("year", F.lit(year))
+        zone_lookup_df = zone_lookup_df.withColumn("month", F.lit(month))
         return zone_lookup_df
     except Exception as e:
         log.error(f"Fail to load data from '{path_file}': {str(e)}")
@@ -108,8 +113,8 @@ def process_data(type):
         df_yellow.coalesce(coalesce_size).write.mode("append").partitionBy("year", "month").option("compression", "snappy").parquet(trusted_path)
     elif type == "zone_lookup":
         log.info(f"Processing {type} lookup data.")
-        df_zone_lookup = load_data_zone_lookup()
-        df_zone_lookup.coalesce(coalesce_size).write.mode("append").option("compression", "snappy").parquet(trusted_path)
+        df_zone_lookup = load_data_zone_lookup(spark, raw_path)
+        df_zone_lookup.coalesce(coalesce_size).write.mode("append").partitionBy("year", "month").option("compression", "snappy").parquet(trusted_path)
     elif type == "all":
         log.info(f"Processing {type} taxi and lookup data.")
         # Green taxi
@@ -120,7 +125,7 @@ def process_data(type):
         df_yellow.coalesce(coalesce_size).write.mode("append").partitionBy("year", "month").option("compression", "snappy").parquet(trusted_path)
         # Lookup zone data
         df_zone_lookup = load_data_zone_lookup()
-        df_zone_lookup.coalesce(coalesce_size).write.mode("append").option("compression", "snappy").parquet(trusted_path)
+        df_zone_lookup.coalesce(coalesce_size).write.mode("append").partitionBy("year", "month").option("compression", "snappy").parquet(trusted_path)
     else:
         log.warn(f"The option '{type}' is not valid, accepted values are (green, yellow, zone_lookup, all).")
         sys.exit(1)       
