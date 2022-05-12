@@ -81,9 +81,9 @@ resource "aws_glue_catalog_database" "aws_glue_database_trusted" {
   name = "${var.trusted_db}"
 }
 
-resource "aws_glue_catalog_table" "aws_glue_table_trusted" {
+resource "aws_glue_catalog_table" "aws_glue_table_green_taxi_trusted" {
   for_each = toset(var.trusted_tables_list)
-  name          = each.key
+  name          = "green_taxi"
   database_name = "${aws_glue_catalog_database.aws_glue_database_trusted.name}"
 
   parameters = {
@@ -92,7 +92,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_trusted" {
   }
 
   storage_descriptor {
-    location      = "s3://${var.s3_bucket_name}/trusted/${each.key}/"
+    location      = "s3://${var.s3_bucket_name}/trusted/green_taxi/"
     input_format  = "${var.storage_input_format}"
     output_format = "${var.storage_output_format}"
 
@@ -109,7 +109,79 @@ resource "aws_glue_catalog_table" "aws_glue_table_trusted" {
     schema_reference {
       schema_id {
         registry_name = "${aws_glue_registry.glue_registry.registry_name}"
-        schema_name   = each.key
+        schema_name   = "green_taxi"
+      }
+      schema_version_number = "${var.schema_version_number}"
+
+    }
+  }
+}
+
+resource "aws_glue_catalog_table" "aws_glue_table_yellow_taxi_trusted" {
+  for_each = toset(var.trusted_tables_list)
+  name          = "yellow_taxi"
+  database_name = "${aws_glue_catalog_database.aws_glue_database_trusted.name}"
+
+  parameters = {
+    EXTERNAL          = "TRUE"
+    "classification"  = "parquet"
+  }
+
+  storage_descriptor {
+    location      = "s3://${var.s3_bucket_name}/trusted/yellow_taxi/"
+    input_format  = "${var.storage_input_format}"
+    output_format = "${var.storage_output_format}"
+
+    ser_de_info {
+      name                  = "${var.serde_name}"
+      serialization_library = "${var.serde_library}"
+
+      parameters = {
+        "serialization.format" = 1
+        "parquet.compression"  = "SNAPPY"
+      }
+    }
+
+    schema_reference {
+      schema_id {
+        registry_name = "${aws_glue_registry.glue_registry.registry_name}"
+        schema_name   = "yellow_taxi"
+      }
+      schema_version_number = "${var.schema_version_number}"
+
+    }
+  }
+}
+
+resource "aws_glue_catalog_table" "aws_glue_table_zone_lookup_taxi_trusted" {
+  for_each = toset(var.trusted_tables_list)
+  name          = "zone_lookup_taxi"
+  database_name = "${aws_glue_catalog_database.aws_glue_database_trusted.name}"
+
+  parameters = {
+    EXTERNAL          = "TRUE"
+    "classification"  = "parquet"
+  }
+
+  storage_descriptor {
+    location      = "s3://${var.s3_bucket_name}/trusted/zone_lookup_taxi/"
+    input_format  = "${var.storage_input_format}"
+    output_format = "${var.storage_output_format}"
+
+    ser_de_info {
+      name                  = "${var.serde_name}"
+      serialization_library = "${var.serde_library}"
+
+      parameters = {
+        "serialization.format" = 1
+        "parquet.compression"  = "SNAPPY"
+      }
+    }
+
+    schema_reference {
+      schema_id {
+        registry_name = "${aws_glue_registry.glue_registry.registry_name}"
+        schema_name   = "zone_lookup_taxi"
       }
       schema_version_number = "${var.schema_version_number}"
 
@@ -122,9 +194,9 @@ resource "aws_glue_catalog_database" "aws_glue_database_lakehouse" {
   name = "${var.lakehouse_db}"
 }
 
-resource "aws_glue_catalog_table" "aws_glue_table_lakehouse" {
+resource "aws_glue_catalog_table" "aws_glue_table_payment_method_type_lakehouse" {
   for_each = toset(var.lakehouse_tables_list)
-  name          = each.key
+  name          = "payment_method_type"
   database_name = "${aws_glue_catalog_database.aws_glue_database_lakehouse.name}"
 
   parameters = {
@@ -133,7 +205,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_lakehouse" {
   }
 
   storage_descriptor {
-    location      = "s3://${var.s3_bucket_name}/refined/${each.key}/_symlink_format_manifest/"
+    location      = "s3://${var.s3_bucket_name}/refined/payment_method_type/_symlink_format_manifest/"
     input_format  = "${var.storage_input_format_delta}"
     output_format = "${var.storage_output_format_delta}"
 
@@ -150,7 +222,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_lakehouse" {
     schema_reference {
       schema_id {
         registry_name = "${aws_glue_registry.glue_registry.registry_name}"
-        schema_name   = each.key
+        schema_name   = "payment_method_type"
       }
       schema_version_number = "${var.schema_version_number}"
 
@@ -158,6 +230,113 @@ resource "aws_glue_catalog_table" "aws_glue_table_lakehouse" {
   }
 }
 
+resource "aws_glue_catalog_table" "aws_glue_table_passenger_taxi_type_lakehouse" {
+  for_each = toset(var.lakehouse_tables_list)
+  name          = "passenger_taxi_type"
+  database_name = "${aws_glue_catalog_database.aws_glue_database_lakehouse.name}"
+
+  parameters = {
+    EXTERNAL          = "TRUE"
+    "classification"  = "parquet"
+  }
+
+  storage_descriptor {
+    location      = "s3://${var.s3_bucket_name}/refined/passenger_taxi_type/_symlink_format_manifest/"
+    input_format  = "${var.storage_input_format_delta}"
+    output_format = "${var.storage_output_format_delta}"
+
+    ser_de_info {
+      name                  = "${var.serde_name}"
+      serialization_library = "${var.serde_library}"
+
+      parameters = {
+        "serialization.format" = 1
+        "parquet.compression"  = "SNAPPY"
+      }
+    }
+
+    schema_reference {
+      schema_id {
+        registry_name = "${aws_glue_registry.glue_registry.registry_name}"
+        schema_name   = "passenger_taxi_type"
+      }
+      schema_version_number = "${var.schema_version_number}"
+
+    }
+  }
+}
+
+resource "aws_glue_catalog_table" "aws_glue_table_pickup_time_span_taxi_type_lakehouse" {
+  for_each = toset(var.lakehouse_tables_list)
+  name          = "pickup_time_span_taxi_type"
+  database_name = "${aws_glue_catalog_database.aws_glue_database_lakehouse.name}"
+
+  parameters = {
+    EXTERNAL          = "TRUE"
+    "classification"  = "parquet"
+  }
+
+  storage_descriptor {
+    location      = "s3://${var.s3_bucket_name}/refined/pickup_time_span_taxi_type/_symlink_format_manifest/"
+    input_format  = "${var.storage_input_format_delta}"
+    output_format = "${var.storage_output_format_delta}"
+
+    ser_de_info {
+      name                  = "${var.serde_name}"
+      serialization_library = "${var.serde_library}"
+
+      parameters = {
+        "serialization.format" = 1
+        "parquet.compression"  = "SNAPPY"
+      }
+    }
+
+    schema_reference {
+      schema_id {
+        registry_name = "${aws_glue_registry.glue_registry.registry_name}"
+        schema_name   = "pickup_time_span_taxi_type"
+      }
+      schema_version_number = "${var.schema_version_number}"
+
+    }
+  }
+}
+
+resource "aws_glue_catalog_table" "aws_glue_table_trip_month_span_taxi_type_lakehouse" {
+  for_each = toset(var.lakehouse_tables_list)
+  name          = "trip_month_span_taxi_type"
+  database_name = "${aws_glue_catalog_database.aws_glue_database_lakehouse.name}"
+
+  parameters = {
+    EXTERNAL          = "TRUE"
+    "classification"  = "parquet"
+  }
+
+  storage_descriptor {
+    location      = "s3://${var.s3_bucket_name}/refined/trip_month_span_taxi_type/_symlink_format_manifest/"
+    input_format  = "${var.storage_input_format_delta}"
+    output_format = "${var.storage_output_format_delta}"
+
+    ser_de_info {
+      name                  = "${var.serde_name}"
+      serialization_library = "${var.serde_library}"
+
+      parameters = {
+        "serialization.format" = 1
+        "parquet.compression"  = "SNAPPY"
+      }
+    }
+
+    schema_reference {
+      schema_id {
+        registry_name = "${aws_glue_registry.glue_registry.registry_name}"
+        schema_name   = "trip_month_span_taxi_type"
+      }
+      schema_version_number = "${var.schema_version_number}"
+
+    }
+  }
+}
 
 resource "aws_emr_cluster" "cluster" {
   name           = "${var.cluster_name}"
