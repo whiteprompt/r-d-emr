@@ -5,7 +5,7 @@
     "properties": {
         "vendor_id": {
             "$id": "#/properties/vendor_id",
-            "type": "string",
+            "type": "integer",
             "title": "The vendor_id schema field."
         },
         "pickup_datetime": {

@@ -38,7 +38,7 @@ green_taxi_schema = StructType([
     StructField("congestion_surcharge", StringType(), True)])
 
 yellow_taxi_schema = StructType([
-    StructField("vendor_id", StringType(), True),
+    StructField("vendor_id", IntegerType(), True),
     StructField("pickup_datetime", TimestampType(), True),
     StructField("dropoff_datetime", TimestampType(), True),
     StructField("passenger_count", IntegerType(), True),

@@ -1,10 +1,8 @@
 # EMR Data Processing
 
-## Data Sources
-
-
 ## Introduction
 
+## Data Sources
 
 ## Problem to solve
 
