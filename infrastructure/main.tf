@@ -36,7 +36,7 @@ resource "aws_glue_schema" "yellow_taxi" {
   schema_definition = file(var.yellow_taxi_schema_json)
 }
 
-resource "aws_glue_schema" "zone_lookup" {
+resource "aws_glue_schema" "zone_lookup_taxi" {
   schema_name       = "zone_lookup_taxi"
   registry_arn      = aws_glue_registry.glue_registry.arn
   data_format       = "JSON"
@@ -82,8 +82,7 @@ resource "aws_glue_catalog_database" "aws_glue_database_trusted" {
 }
 
 resource "aws_glue_catalog_table" "aws_glue_table_green_taxi_trusted" {
-  for_each = toset(var.trusted_tables_list)
-  name          = "green_taxi"
+  name          = "${aws_glue_schema.green_taxi.name}"
   database_name = "${aws_glue_catalog_database.aws_glue_database_trusted.name}"
 
   parameters = {
@@ -92,7 +91,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_green_taxi_trusted" {
   }
 
   storage_descriptor {
-    location      = "s3://${var.s3_bucket_name}/trusted/green_taxi/"
+    location      = "s3://${var.s3_bucket_name}/trusted/${aws_glue_schema.green_taxi.name}/"
     input_format  = "${var.storage_input_format}"
     output_format = "${var.storage_output_format}"
 
@@ -109,7 +108,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_green_taxi_trusted" {
     schema_reference {
       schema_id {
         registry_name = "${aws_glue_registry.glue_registry.registry_name}"
-        schema_name   = "green_taxi"
+        schema_name   = "${aws_glue_schema.green_taxi.name}"
       }
       schema_version_number = "${var.schema_version_number}"
 
@@ -118,8 +117,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_green_taxi_trusted" {
 }
 
 resource "aws_glue_catalog_table" "aws_glue_table_yellow_taxi_trusted" {
-  for_each = toset(var.trusted_tables_list)
-  name          = "yellow_taxi"
+  name          = "${aws_glue_schema.yellow_taxi.name}"
   database_name = "${aws_glue_catalog_database.aws_glue_database_trusted.name}"
 
   parameters = {
@@ -128,7 +126,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_yellow_taxi_trusted" {
   }
 
   storage_descriptor {
-    location      = "s3://${var.s3_bucket_name}/trusted/yellow_taxi/"
+    location      = "s3://${var.s3_bucket_name}/trusted/${aws_glue_schema.yellow_taxi.name}/"
     input_format  = "${var.storage_input_format}"
     output_format = "${var.storage_output_format}"
 
@@ -145,7 +143,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_yellow_taxi_trusted" {
     schema_reference {
       schema_id {
         registry_name = "${aws_glue_registry.glue_registry.registry_name}"
-        schema_name   = "yellow_taxi"
+        schema_name   = "${aws_glue_schema.yellow_taxi.name}"
       }
       schema_version_number = "${var.schema_version_number}"
 
@@ -154,8 +152,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_yellow_taxi_trusted" {
 }
 
 resource "aws_glue_catalog_table" "aws_glue_table_zone_lookup_taxi_trusted" {
-  for_each = toset(var.trusted_tables_list)
-  name          = "zone_lookup_taxi"
+  name          = "${aws_glue_schema.zone_lookup_taxi.name}"
   database_name = "${aws_glue_catalog_database.aws_glue_database_trusted.name}"
 
   parameters = {
@@ -164,7 +161,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_zone_lookup_taxi_trusted" {
   }
 
   storage_descriptor {
-    location      = "s3://${var.s3_bucket_name}/trusted/zone_lookup_taxi/"
+    location      = "s3://${var.s3_bucket_name}/trusted/${aws_glue_schema.zone_lookup_taxi.name}/"
     input_format  = "${var.storage_input_format}"
     output_format = "${var.storage_output_format}"
 
@@ -181,7 +178,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_zone_lookup_taxi_trusted" {
     schema_reference {
       schema_id {
         registry_name = "${aws_glue_registry.glue_registry.registry_name}"
-        schema_name   = "zone_lookup_taxi"
+        schema_name   = "${aws_glue_schema.zone_lookup_taxi.name}"
       }
       schema_version_number = "${var.schema_version_number}"
 
@@ -195,8 +192,7 @@ resource "aws_glue_catalog_database" "aws_glue_database_lakehouse" {
 }
 
 resource "aws_glue_catalog_table" "aws_glue_table_payment_method_type_lakehouse" {
-  for_each = toset(var.lakehouse_tables_list)
-  name          = "payment_method_type"
+  name          = "${aws_glue_schema.payment_method_type.name}"
   database_name = "${aws_glue_catalog_database.aws_glue_database_lakehouse.name}"
 
   parameters = {
@@ -205,7 +201,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_payment_method_type_lakehouse"
   }
 
   storage_descriptor {
-    location      = "s3://${var.s3_bucket_name}/refined/payment_method_type/_symlink_format_manifest/"
+    location      = "s3://${var.s3_bucket_name}/refined/${aws_glue_schema.payment_method_type.name}/_symlink_format_manifest/"
     input_format  = "${var.storage_input_format_delta}"
     output_format = "${var.storage_output_format_delta}"
 
@@ -222,7 +218,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_payment_method_type_lakehouse"
     schema_reference {
       schema_id {
         registry_name = "${aws_glue_registry.glue_registry.registry_name}"
-        schema_name   = "payment_method_type"
+        schema_name   = "${aws_glue_schema.payment_method_type.name}"
       }
       schema_version_number = "${var.schema_version_number}"
 
@@ -231,8 +227,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_payment_method_type_lakehouse"
 }
 
 resource "aws_glue_catalog_table" "aws_glue_table_passenger_taxi_type_lakehouse" {
-  for_each = toset(var.lakehouse_tables_list)
-  name          = "passenger_taxi_type"
+  name          = "${aws_glue_schema.passenger_taxi_type.name}"
   database_name = "${aws_glue_catalog_database.aws_glue_database_lakehouse.name}"
 
   parameters = {
@@ -241,7 +236,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_passenger_taxi_type_lakehouse"
   }
 
   storage_descriptor {
-    location      = "s3://${var.s3_bucket_name}/refined/passenger_taxi_type/_symlink_format_manifest/"
+    location      = "s3://${var.s3_bucket_name}/refined/${aws_glue_schema.passenger_taxi_type.name}/_symlink_format_manifest/"
     input_format  = "${var.storage_input_format_delta}"
     output_format = "${var.storage_output_format_delta}"
 
@@ -258,7 +253,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_passenger_taxi_type_lakehouse"
     schema_reference {
       schema_id {
         registry_name = "${aws_glue_registry.glue_registry.registry_name}"
-        schema_name   = "passenger_taxi_type"
+        schema_name   = "${aws_glue_schema.passenger_taxi_type.name}"
       }
       schema_version_number = "${var.schema_version_number}"
 
@@ -267,8 +262,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_passenger_taxi_type_lakehouse"
 }
 
 resource "aws_glue_catalog_table" "aws_glue_table_pickup_time_span_taxi_type_lakehouse" {
-  for_each = toset(var.lakehouse_tables_list)
-  name          = "pickup_time_span_taxi_type"
+  name          = "${aws_glue_schema.pickup_time_span_taxi_type.name}"
   database_name = "${aws_glue_catalog_database.aws_glue_database_lakehouse.name}"
 
   parameters = {
@@ -277,7 +271,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_pickup_time_span_taxi_type_lak
   }
 
   storage_descriptor {
-    location      = "s3://${var.s3_bucket_name}/refined/pickup_time_span_taxi_type/_symlink_format_manifest/"
+    location      = "s3://${var.s3_bucket_name}/refined/${aws_glue_schema.pickup_time_span_taxi_type.name}/_symlink_format_manifest/"
     input_format  = "${var.storage_input_format_delta}"
     output_format = "${var.storage_output_format_delta}"
 
@@ -294,7 +288,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_pickup_time_span_taxi_type_lak
     schema_reference {
       schema_id {
         registry_name = "${aws_glue_registry.glue_registry.registry_name}"
-        schema_name   = "pickup_time_span_taxi_type"
+        schema_name   = "${aws_glue_schema.pickup_time_span_taxi_type.name}"
       }
       schema_version_number = "${var.schema_version_number}"
 
@@ -303,8 +297,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_pickup_time_span_taxi_type_lak
 }
 
 resource "aws_glue_catalog_table" "aws_glue_table_trip_month_span_taxi_type_lakehouse" {
-  for_each = toset(var.lakehouse_tables_list)
-  name          = "trip_month_span_taxi_type"
+  name          = "${aws_glue_schema.trip_month_span_taxi_type.name}"
   database_name = "${aws_glue_catalog_database.aws_glue_database_lakehouse.name}"
 
   parameters = {
@@ -313,7 +306,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_trip_month_span_taxi_type_lake
   }
 
   storage_descriptor {
-    location      = "s3://${var.s3_bucket_name}/refined/trip_month_span_taxi_type/_symlink_format_manifest/"
+    location      = "s3://${var.s3_bucket_name}/refined/${aws_glue_schema.trip_month_span_taxi_type.name}/_symlink_format_manifest/"
     input_format  = "${var.storage_input_format_delta}"
     output_format = "${var.storage_output_format_delta}"
 
@@ -330,7 +323,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_trip_month_span_taxi_type_lake
     schema_reference {
       schema_id {
         registry_name = "${aws_glue_registry.glue_registry.registry_name}"
-        schema_name   = "trip_month_span_taxi_type"
+        schema_name   = "${aws_glue_schema.trip_month_span_taxi_type.name}"
       }
       schema_version_number = "${var.schema_version_number}"
 
