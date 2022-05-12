@@ -83,7 +83,7 @@ resource "aws_glue_catalog_database" "aws_glue_database_trusted" {
 
 resource "aws_glue_catalog_table" "aws_glue_table_trusted" {
   for_each = toset(var.trusted_tables_list)
-  name          = "${each.key}"
+  name          = each.key
   database_name = "${aws_glue_catalog_database.aws_glue_database_trusted.name}"
 
   parameters = {
@@ -109,7 +109,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_trusted" {
     schema_reference {
       schema_id {
         registry_name = "${aws_glue_registry.glue_registry.registry_name}"
-        schema_name   = "${each.key}"
+        schema_name   = each.key
       }
       schema_version_number = "${var.schema_version_number}"
 
@@ -124,7 +124,7 @@ resource "aws_glue_catalog_database" "aws_glue_database_lakehouse" {
 
 resource "aws_glue_catalog_table" "aws_glue_table_lakehouse" {
   for_each = toset(var.lakehouse_tables_list)
-  name          = "${each.key}"
+  name          = each.key
   database_name = "${aws_glue_catalog_database.aws_glue_database_lakehouse.name}"
 
   parameters = {
@@ -150,7 +150,7 @@ resource "aws_glue_catalog_table" "aws_glue_table_lakehouse" {
     schema_reference {
       schema_id {
         registry_name = "${aws_glue_registry.glue_registry.registry_name}"
-        schema_name   = "${each.key}"
+        schema_name   = each.key
       }
       schema_version_number = "${var.schema_version_number}"
 
