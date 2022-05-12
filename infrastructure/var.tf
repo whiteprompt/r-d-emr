@@ -141,6 +141,10 @@ variable "step_concurrency_level" {
   default = 1
 }
 
+variable "terminate_cluster" {
+  default = false
+}
+
 variable "release_label" {
   description = "EMR Version"
   default = "emr-6.5.0"

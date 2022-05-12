@@ -353,6 +353,7 @@ resource "aws_emr_cluster" "cluster" {
   }
 
   step_concurrency_level = "${var.step_concurrency_level}"
+  keep_job_flow_alive_when_no_steps = "${var.terminate_cluster}"
 
   ec2_attributes {
     key_name                          = "${var.key_name}"
