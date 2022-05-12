@@ -5,36 +5,16 @@
             "jar": "command-runner.jar",
             "args": [
                 "spark-submit",
-                "/home/hadoop/r-d-emr/app/process_lakehouse_data.py"
-            ]
-        },
-        "name": "Process Data Lakehouse"
-    },
-    {
-        "action_on_failure": "CONTINUE",
-        "hadoop_jar_step": {
-            "jar": "command-runner.jar",
-            "args": [
-                "spark-submit",
-                "/home/hadoop/r-d-emr/app/process_trusted_data.py",
+                "/home/hadoop/r-d-emr/app/ingest_raw_data.py",
                 "--type",
-                "green"
+                "green",
+                "--year_data",
+                "2019",
+                "--interval",
+                "1-12"
             ]
         },
-        "name": "Process Green Taxi Data - Trusted Zone"
-    },
-    {
-        "action_on_failure": "CONTINUE",
-        "hadoop_jar_step": {
-            "jar": "command-runner.jar",
-            "args": [
-                "spark-submit",
-                "/home/hadoop/r-d-emr/app/process_trusted_data.py",
-                "--type",
-                "yellow"
-            ]
-        },
-        "name": "Process Yellow Taxi Data - Trusted Zone"
+        "name": "Extract Green Taxi Data - 2019"
     },
     {
         "action_on_failure": "CONTINUE",
@@ -44,14 +24,14 @@
                 "spark-submit",
                 "/home/hadoop/r-d-emr/app/ingest_raw_data.py",
                 "--type",
-                "yellow",
+                "green",
                 "--year_data",
                 "2020",
                 "--interval",
                 "1-12"
             ]
         },
-        "name": "Extract Yellow Taxi Data - 2020"
+        "name": "Extract Green Taxi Data - 2020"
     },
     {
         "action_on_failure": "CONTINUE",
@@ -78,14 +58,14 @@
                 "spark-submit",
                 "/home/hadoop/r-d-emr/app/ingest_raw_data.py",
                 "--type",
-                "green",
+                "yellow",
                 "--year_data",
                 "2020",
                 "--interval",
                 "1-12"
             ]
         },
-        "name": "Extract Green Taxi Data - 2020"
+        "name": "Extract Yellow Taxi Data - 2020"
     },
     {
         "action_on_failure": "CONTINUE",
@@ -93,15 +73,35 @@
             "jar": "command-runner.jar",
             "args": [
                 "spark-submit",
-                "/home/hadoop/r-d-emr/app/ingest_raw_data.py",
+                "/home/hadoop/r-d-emr/app/process_trusted_data.py",
                 "--type",
-                "green",
-                "--year_data",
-                "2019",
-                "--interval",
-                "1-12"
+                "yellow"
             ]
         },
-        "name": "Extract Green Taxi Data - 2019"
+        "name": "Process Yellow Taxi Data - Trusted Zone"
+    },
+    {
+        "action_on_failure": "CONTINUE",
+        "hadoop_jar_step": {
+            "jar": "command-runner.jar",
+            "args": [
+                "spark-submit",
+                "/home/hadoop/r-d-emr/app/process_trusted_data.py",
+                "--type",
+                "green"
+            ]
+        },
+        "name": "Process Green Taxi Data - Trusted Zone"
+    },
+    {
+        "action_on_failure": "CONTINUE",
+        "hadoop_jar_step": {
+            "jar": "command-runner.jar",
+            "args": [
+                "spark-submit",
+                "/home/hadoop/r-d-emr/app/process_lakehouse_data.py"
+            ]
+        },
+        "name": "Process Data Lakehouse"
     }
 ]
