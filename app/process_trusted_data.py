@@ -63,10 +63,16 @@ zone_lookup_schema = StructType([
     StructField("zone", StringType(), True),
     StructField("service_zone", StringType(), True)])
 
-
+#withColumnRenamed(existingName, newNam)
 def load_data_green_taxi(spark, path_file):
     try:
-        green_taxi_df = spark.read.option("header", "true").schema(green_taxi_schema).option("escapeQuotes", "true").csv(f"{path_file}")
+        green_taxi_df = spark.read.parquet(f"{path_file}")
+        green_taxi_df = green_taxi_df.withColumnRenamed("VendorID", "vendor_id")
+        green_taxi_df = green_taxi_df.withColumnRenamed("lpep_pickup_datetime", "pickup_datetime")
+        green_taxi_df = green_taxi_df.withColumnRenamed("lpep_dropoff_datetime", "dropoff_datetime")
+        green_taxi_df = green_taxi_df.withColumnRenamed("RatecodeID", "rate_code_id")
+        green_taxi_df = green_taxi_df.withColumnRenamed("PULocationID", "pickup_location_id")
+        green_taxi_df = green_taxi_df.withColumnRenamed("DOLocationID", "dropoff_location_id")
         green_taxi_df = green_taxi_df.withColumn("year", F.year(green_taxi_df['pickup_datetime']).cast("integer"))
         green_taxi_df = green_taxi_df.withColumn("month", F.month(green_taxi_df['pickup_datetime']).cast("integer"))
         return green_taxi_df
@@ -76,7 +82,13 @@ def load_data_green_taxi(spark, path_file):
 
 def load_data_yellow_taxi(spark, path_file):
     try:
-        yellow_taxi_df = spark.read.option("header", "true").schema(yellow_taxi_schema).option("escapeQuotes", "true").csv(f"{path_file}")
+        yellow_taxi_df = spark.read.parquet(f"{path_file}")
+        yellow_taxi_df = yellow_taxi_df.withColumnRenamed("VendorID", "vendor_id")
+        yellow_taxi_df = yellow_taxi_df.withColumnRenamed("tpep_pickup_datetime", "pickup_datetime")
+        yellow_taxi_df = yellow_taxi_df.withColumnRenamed("tpep_dropoff_datetime", "dropoff_datetime")
+        yellow_taxi_df = yellow_taxi_df.withColumnRenamed("RatecodeID", "rate_code_id")
+        yellow_taxi_df = yellow_taxi_df.withColumnRenamed("PULocationID", "pickup_location_id")
+        yellow_taxi_df = yellow_taxi_df.withColumnRenamed("DOLocationID", "dropoff_location_id")
         yellow_taxi_df = yellow_taxi_df.withColumn("year", F.year(yellow_taxi_df['pickup_datetime']).cast("integer"))
         yellow_taxi_df = yellow_taxi_df.withColumn("month", F.month(yellow_taxi_df['pickup_datetime']).cast("integer"))
         return yellow_taxi_df

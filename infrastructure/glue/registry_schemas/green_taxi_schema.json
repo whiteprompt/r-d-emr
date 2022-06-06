@@ -5,7 +5,7 @@
     "properties": {
         "vendor_id": {
             "$id": "#/properties/vendor_id",
-            "type": "integer",
+            "type": "number",
             "title": "The vendor_id schema field."
         },
         "pickup_datetime": {
@@ -27,22 +27,22 @@
         },
         "rate_code_id": {
             "$id": "#/properties/rate_code_id",
-            "type": "integer",
+            "type": "number",
             "title": "The rate_code_id schema field."
         },
         "pickup_location_id": {
             "$id": "#/properties/pickup_location_id",
-            "type": "integer",
+            "type": "number",
             "title": "The pickup_location_id schema field."
         },
         "dropoff_location_id": {
             "$id": "#/properties/dropoff_location_id",
-            "type": "integer",
+            "type": "number",
             "title": "The dropoff_location_id schema field."
         },
         "passenger_count": {
             "$id": "#/properties/passenger_count",
-            "type": "integer",
+            "type": "number",
             "title": "The passenger_count schema field."
         },
         "trip_distance": {
@@ -92,17 +92,17 @@
         },
         "payment_type": {
             "$id": "#/properties/payment_type",
-            "type": "integer",
+            "type": "number",
             "title": "The payment_type schema field."
         },
         "trip_type": {
             "$id": "#/properties/trip_type",
-            "type": "integer",
+            "type": "number",
             "title": "The trip_type schema field."
         },
         "congestion_surcharge": {
             "$id": "#/properties/congestion_surcharge",
-            "type": "string",
+            "type": "number",
             "title": "The congestion_surcharge schema field."
         },
         "year": {

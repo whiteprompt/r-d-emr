@@ -46,8 +46,8 @@ def execute(type, year_data="2020", month_interval="1-2"):
             else:
                 # Copy taxi trip data
                 min_interval_str = "{:02d}".format(min_interval)
-                copy_data(origin_bucket="nyc-tlc", origin_key=f"trip data/{type}_tripdata_{year_data}-{min_interval_str}.csv",
-                        dest_bucket='wp-lakehouse', dest_key=f"raw/{type}_taxi/trip_{year_data}_{min_interval_str}.csv")
+                copy_data(origin_bucket="nyc-tlc", origin_key=f"trip data/{type}_tripdata_{year_data}-{min_interval_str}.parquet",
+                        dest_bucket='wp-lakehouse', dest_key=f"raw/{type}_taxi/trip_{year_data}_{min_interval_str}.parquet")
                 
                 if min_interval < max_interval:
                     min_interval = min_interval + 1
