@@ -210,4 +210,4 @@ if __name__ == '__main__':
     total_passenger_taxi_type(lakehouse_path)
     total_pickup_time_span_taxi_type(lakehouse_path)
     total_trip_month_span_taxi_type(lakehouse_path)
-    log.info("All tables were created inside of Data Lakehouse '{lakehouse_path}'.")
+    log.info(f"All tables were created inside of Data Lakehouse '{lakehouse_path}'.")
