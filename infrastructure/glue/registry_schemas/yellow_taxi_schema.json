@@ -95,11 +95,6 @@
             "type": "number",
             "title": "The congestion_surcharge schema field."
         },
-        "airport_fee": {
-            "$id": "#/properties/airport_fee",
-            "type": "integer",
-            "title": "The airport_fee schema field."
-        },
         "year": {
             "$id": "#/properties/year",
             "type": "integer",
