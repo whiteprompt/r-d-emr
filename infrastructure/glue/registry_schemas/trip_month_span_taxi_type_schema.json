@@ -10,7 +10,7 @@
         },
         "count": {
             "$id": "#/properties/count",
-            "type": "number",
+            "type": "integer",
             "title": "The count schema field."
         },
         "month": {

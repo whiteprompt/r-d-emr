@@ -10,7 +10,7 @@
         },
         "total_payment": {
             "$id": "#/properties/total_payment",
-            "type": "number",
+            "type": "integer",
             "title": "The total_payment schema field."
         }
     }

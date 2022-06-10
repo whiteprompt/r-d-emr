@@ -10,7 +10,7 @@
         },
         "total": {
             "$id": "#/properties/total",
-            "type": "number",
+            "type": "integer",
             "title": "The total schema field."
         },
         "taxi_type": {

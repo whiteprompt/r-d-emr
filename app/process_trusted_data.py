@@ -67,6 +67,7 @@ zone_lookup_schema = StructType([
 def load_data_green_taxi(spark, path_file):
     try:
         green_taxi_df = spark.read.parquet(f"{path_file}")
+        green_taxi_df = green_taxi_df.withColumn("payment_type", F.col("payment_type").cast("integer"))
         green_taxi_df = green_taxi_df.withColumnRenamed("VendorID", "vendor_id")
         green_taxi_df = green_taxi_df.withColumnRenamed("lpep_pickup_datetime", "pickup_datetime")
         green_taxi_df = green_taxi_df.withColumnRenamed("lpep_dropoff_datetime", "dropoff_datetime")
@@ -84,6 +85,7 @@ def load_data_yellow_taxi(spark, path_file):
     try:
         yellow_taxi_df = spark.read.parquet(f"{path_file}")
         yellow_taxi_df = yellow_taxi_df.drop("airport_fee")
+        yellow_taxi_df = yellow_taxi_df.withColumn("payment_type", F.col("payment_type").cast("integer"))
         yellow_taxi_df = yellow_taxi_df.withColumnRenamed("VendorID", "vendor_id")
         yellow_taxi_df = yellow_taxi_df.withColumnRenamed("tpep_pickup_datetime", "pickup_datetime")
         yellow_taxi_df = yellow_taxi_df.withColumnRenamed("tpep_dropoff_datetime", "dropoff_datetime")

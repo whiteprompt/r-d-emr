@@ -54,6 +54,7 @@ def total_payment_method_type(path):
         """)
         log.info(f"Generating delta table for '{table_name}' at '{path}'.")
         dfPaymentMadeTotal.write.format("delta").mode("overwrite").save(f"{path}/{table_name}/")
+        dfPaymentMadeTotal = dfPaymentMadeTotal.withColumn("total_payment", F.col("total_payment").cast("integer"))
         deltaTable = DeltaTable.forPath(spark, f"{path}/{table_name}/")
         deltaTable.generate("symlink_format_manifest")
         return deltaTable
@@ -80,6 +81,7 @@ def total_passenger_taxi_type(path):
         FROM total_passenger_green
         """)
         log.info(f"Generating delta table for '{table_name}' at '{path}'.")
+        dfTotalPassengerByType = dfTotalPassengerByType.withColumn("total_passenger", F.col("total_passenger").cast("integer"))
         dfTotalPassengerByType.write.format("delta").mode("overwrite").save(f"{path}/{table_name}/")
         deltaTable = DeltaTable.forPath(spark, f"{path}/{table_name}/")
         deltaTable.generate("symlink_format_manifest")
@@ -134,6 +136,7 @@ def total_pickup_time_span_taxi_type(path):
         order by timeslot
         """)
         log.info(f"Generating delta table for '{table_name}' at '{path}'.")
+        dfPickUpTimeSpan = dfPickUpTimeSpan.withColumn("total", F.col("total").cast("integer"))
         dfPickUpTimeSpan.write.format("delta").mode("overwrite").save(f"{path}/{table_name}/")
         deltaTable = DeltaTable.forPath(spark, f"{path}/{table_name}/")
         deltaTable.generate("symlink_format_manifest")
@@ -194,6 +197,7 @@ def total_trip_month_span_taxi_type(path):
         Order by month) order by month
         """)
         log.info(f"Generating delta table for '{table_name}' at '{path}'.")
+        dfTotalTripByMonthAndType = dfTotalTripByMonthAndType.withColumn("count", F.col("count").cast("integer"))
         dfTotalTripByMonthAndType.write.format("delta").mode("overwrite").save(f"{path}/{table_name}/")
         deltaTable = DeltaTable.forPath(spark, f"{path}/{table_name}/")
         deltaTable.generate("symlink_format_manifest")

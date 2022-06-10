@@ -5,7 +5,7 @@
     "properties": {
         "total_passenger": {
             "$id": "#/properties/total_passenger",
-            "type": "number",
+            "type": "integer",
             "title": "The total_passenger schema field."
         },
         "taxi_type": {
